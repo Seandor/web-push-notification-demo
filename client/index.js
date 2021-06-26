@@ -15,7 +15,7 @@ const client = (() => {
     const customizedNotification = reg => {
       const options = {
         body: 'This is an important body',
-        icon: 'images/favicon.png',
+        icon: 'images/Capture.PNG',
         actions: [
           { action: 'Search', title: 'Try Searching!' },
           { action: 'Close', title: 'Forget it!' },
