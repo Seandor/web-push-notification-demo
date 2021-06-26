@@ -1,4 +1,5 @@
 const webPush = require('web-push')
+const faker = require('faker')
 
 const pushSubscription = {
   "endpoint": "https://wns2-sg2p.notify.windows.com/w/?token=BQYAAAD0r9StbwKavEqvFb7UQatUBe1mSPFDMzy5mTjEUg8a9Y%2f5D%2bf24C0RvZIa6Frm7zMo8Cyl7Sa30bwYt0mLsm1%2fv9yfooBbkObege1aCV1VeMgJYIUtoob70%2fom8gR9wB%2bKT3WaJepNFLEItnx8yClvpHYIkYsWCGut6Pemqs7M5blNByD33%2bAguoLC95NcYbzFkN6d8CjiyGHp9l2N1wjPN6QyTqVJQjDJ%2fW31NesdOTbFF6J8vP79Dxu0HFLMVGJT3A7axPWUkmKb9t34g2%2bHcTe4gdgOISryZwulCQJJFySgaklSlbf87FOhWcNdaNjdO%2bS6Aw8gQ18XHSMpJHqs",
@@ -21,14 +22,25 @@ const options = {
   }
 }
 
-const notify = () => {
-  webPush.sendNotification(
-    pushSubscription,
-    "Hello from server!",
-    options
-  )
-  .then(() => console.log('subscribers notified'))
-  .catch(error => console.error('Error in pushing notification', error))
+const notify = (subscribers) => {
+  const transaction = faker.helpers.createTransaction()
+
+  if (subscribers.size < 1) {
+    console.log('No subscribers to notify')
+    return
+  }
+  
+  subscribers.forEach((subscriber, id) => {
+    webPush.sendNotification(
+      subscriber,
+      JSON.stringify(transaction),
+      options
+    )
+      .then(() => console.log(`${subscribers.size} subscribers notified`))
+      .catch(error => console.error('Error in pushing notification', error))
+  })
 }
 
-notify()
+module.exports = {
+  notify
+}
