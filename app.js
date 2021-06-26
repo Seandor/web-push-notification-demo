@@ -1,13 +1,15 @@
 const express = require('express')
 const cors = require('cors')
-const publisher = require('./publisher')
+const publisher = require('./server/publisher')
 
 const app = express()
-const port = 3000
+const port = 9999
 
 app.use(express.json())
 
 app.use(cors())
+
+app.use(express.static(__dirname))
 
 const subscribers = new Map()
 

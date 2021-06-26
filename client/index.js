@@ -95,7 +95,7 @@ const client = (() => {
     }
 
     const subscribeWithServer = (subscription) => {
-      return fetch('http://localhost:3000/addSubscriber', {
+      return fetch('http://localhost:9999/addSubscriber', {
         method: 'Post',
         body: JSON.stringify(subscription),
         headers: {
@@ -121,7 +121,7 @@ const client = (() => {
     }
 
     const unsubscribeWithServer = (id) => {
-      return fetch('http://localhost:3000/removeSubscriber', {
+      return fetch('http://localhost:9999/removeSubscriber', {
         method: 'Post',
         body: JSON.stringify({ id }),
         headers: {
